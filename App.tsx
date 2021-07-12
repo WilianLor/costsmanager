@@ -5,13 +5,9 @@ import Routes from './src/routes'
 import { useFonts, Jost_400Regular, Jost_600SemiBold } from '@expo-google-fonts/jost'
 import AppLoading from 'expo-app-loading'
 
-import {Provider} from 'react-redux'
-import {PersistGate} from 'redux-persist/integration/react'
+import AuthContextProvider from './src/contexts/AuthContext'
 
-import {
-  store, 
-  persistor
-} from './src/store/store'
+import './src/services/firebase'
 
 const App = () => {
 
@@ -25,11 +21,9 @@ const App = () => {
   }
   
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Routes />
-      </PersistGate>  
-    </Provider>
+    <AuthContextProvider>
+      <Routes />
+    </AuthContextProvider>
   )
 }
 

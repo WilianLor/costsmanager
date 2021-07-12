@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
 import {
     SafeAreaView,
@@ -7,51 +7,19 @@ import {
     ScrollView,
 } from 'react-native'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { State, Categories } from '../store/dataReducer'
-
 import colors from '../styles/colors'
 import fonts from '../styles/fonts'
-import CategoryCard from '../components/CategoryCard';
 import Header from '../components/Header'
-import { RectButton } from 'react-native-gesture-handler'
-import { Ionicons } from '@expo/vector-icons'
-import { RemoveCategorie } from '../store/actions'
+
 
 const RemoveCategory: React.FC = () => {
 
-    const dispatch = useDispatch()
-    
-    let infos = useSelector<State, Array<Categories> | undefined>(state => state.categories)
-    
-    const [removedItem, setRemovedItem] = useState<string | undefined>()
-
-    useEffect(() => {
-        if(removedItem){
-            const categoryIndex = infos?.findIndex(category => category.id == removedItem)
-            infos?.splice(categoryIndex ? categoryIndex : 0, 1)
-        }
-    }, [removedItem])
-
-    const onRemoveCategory = (id: string) => {
-        dispatch(RemoveCategorie({id}))
-        setRemovedItem(id)
-    }
- 
     return (
         <SafeAreaView style={styles.removeCategory}>
             <Header pageTitle="Remover categoria"/>
             <View style={styles.content}>
                 <ScrollView style={{borderRadius: 8}}>
-                    {
-                        infos?.map((category: Categories) => (
-                            <CategoryCard title={category.title} type={0} key={category.id} categoryId={category.id}>
-                                <RectButton style={styles.button} onPress={() => onRemoveCategory(category.id)}>
-                                    <Ionicons name="trash-bin" size={24} color={colors.red}/>
-                                </RectButton> 
-                            </CategoryCard>
-                        ))
-                    }
+                    
                 </ScrollView>
             </View>
         </SafeAreaView>

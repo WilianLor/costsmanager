@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
 import {
     SafeAreaView,
@@ -15,9 +14,6 @@ import colors from '../styles/colors'
 import fonts from '../styles/fonts'
 import { Entypo } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
-import { useDispatch } from 'react-redux'
-import { CreateCost } from '../store/actions'
-import GenerateId from '../functions/GenerateId'
 
 interface error {
     anyError: boolean,
@@ -26,10 +22,6 @@ interface error {
 
 const AddCosts = (props: any) => {
     const [error, setError] = useState<error | undefined>()
-    const navigation = useNavigation()
-    const dispatch = useDispatch()
-
-    const {id} = props.route.params
 
     const [name, setName] = useState<string| undefined>()
     const [date, setDate] = useState<Date | undefined>()
@@ -81,15 +73,7 @@ const AddCosts = (props: any) => {
             })
         }
 
-        dispatch(CreateCost({
-            id: GenerateId(),
-            title: name,
-            value: Value,
-            paymentStatus: false,
-            dueDate: date,
-            categoryId: id
-        }))
-        navigation.goBack()
+        
 
     }
 
